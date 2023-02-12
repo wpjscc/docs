@@ -19,7 +19,7 @@ php artisan serve
 composer
 
 ```
-composer create-project wpjscc/docs docs -vvv
+composer create-project wpjscc/docs docs dev-master -vvv
 cd docs
 cp .env.example .env
 php artisan key:gene

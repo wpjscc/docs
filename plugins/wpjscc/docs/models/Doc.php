@@ -34,6 +34,9 @@ class Doc extends Model
 
     public function beforeCreate()
     {
-       $this->key = str_random(10);
+        if (!$this->key) {
+            $this->key = str_random(10);
+        }
+       
     }
 }

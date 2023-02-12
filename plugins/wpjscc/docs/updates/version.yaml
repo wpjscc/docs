@@ -5,3 +5,6 @@
 1.0.2:
     - 'Updated table wpjscc_docs_docs'
     - builder_table_update_wpjscc_docs_docs.php
+1.0.4:
+    - 'seed all tables.php'
+    - seed_all_tables.php
