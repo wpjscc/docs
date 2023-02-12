@@ -3,6 +3,8 @@
 
 文档系统，支持多语言
 
+example https://docs.wpjs.cc
+
 ## install
 
 github
@@ -60,7 +62,7 @@ http://127.0.0.1:8000
 http://127.0.0.1:8000/backend
 
 
-example
+
 
 
 ## ref
