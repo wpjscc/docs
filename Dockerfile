@@ -1,4 +1,4 @@
-ARG PHP_VERSION="registry.cn-shanghai.aliyuncs.com/wpjscc/php:8.0.9-fpm-alpine3.13"
+ARG PHP_VERSION="wpjscc/php:8.0.9-fpm-alpine3.13"
 FROM ${PHP_VERSION}
 
 COPY  . /var/www/html
