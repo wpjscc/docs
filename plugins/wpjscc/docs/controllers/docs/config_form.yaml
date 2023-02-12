@@ -1,0 +1,10 @@
+name: Docs
+form: $/wpjscc/docs/models/doc/fields.yaml
+modelClass: Wpjscc\Docs\Models\Doc
+defaultRedirect: wpjscc/docs/docs
+create:
+    redirect: 'wpjscc/docs/docs/update/:id'
+    redirectClose: wpjscc/docs/docs
+update:
+    redirect: wpjscc/docs/docs
+    redirectClose: wpjscc/docs/docs

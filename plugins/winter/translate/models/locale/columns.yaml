@@ -1,0 +1,26 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+    name:
+        label: winter.translate::lang.locale.name
+        searchable: yes
+
+    code:
+        label: winter.translate::lang.locale.code
+        searchable: yes
+
+    is_default:
+        label: winter.translate::lang.locale.is_default
+        type: switch
+
+    is_enabled:
+        label: winter.translate::lang.locale.is_enabled
+        type: switch
+        invisible: true
+
+    sort_order:
+        label: winter.translate::lang.locale.sort_order
+        type: number
+        invisible: true

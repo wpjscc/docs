@@ -1,0 +1,33 @@
+description = "Global header"
+==
+{% if pageTitle is empty %}
+    {% if this.page.meta_title %}
+        {% set pageTitle = this.page.meta_title %}
+    {% elseif this.page.title %}
+        {% set pageTitle = this.page.title %}
+    {% endif %}
+{% endif %}
+<!DOCTYPE html>
+<html lang="en" class="
+    h-full tracking-normal
+">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% placeholder page_title default %}{{ pageTitle }}{% endplaceholder %}</title>
+        {% partial "meta/styles" %}
+        <meta name="generator" content="Winter CMS">
+    </head>
+    {% set pageId = this.page.id %}
+    {% if pageId is empty %}
+        {% set pageId = page.id %}
+    {% endif %}
+    <body class="
+        page-{{ pageId }}
+        layout-{{ this.layout.id }}
+        bg-white text-grey-600
+        dark:bg-navy-dark dark:text-grey-400
+        h-full flex flex-row
+        subpixel-antialiased font-standard text-base-mobile lg:text-base
+    ">
+

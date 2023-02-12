@@ -1,0 +1,30 @@
+title = "Page not found (404)"
+url = "/404"
+layout = "home"
+
+[localePicker]
+forceUrl = 0
+==
+
+<div class="h-full w-full flex flex-col items-center justify-center">
+    <div class="w-10/12 lg:w-1/2 flex flex-col gap-6">
+        <div class="w-60 mx-auto">
+            {# {% partial 'site/logo' %} #}
+        </div>
+        <div class="heading-1 -mt-6 mx-auto">
+            404
+        </div>
+        <div class="border-t border-grey-300 dark:border-navy-light"></div>
+        <div class="mx-auto">
+            {% component localePicker %}
+        </div>
+        <div class="flex-shrink mx-auto">
+            <a href="{{'home' | page }}" class="button button-primary">
+                Home
+            </a>
+        </div>
+       
+    </div>
+</div>
+
+

@@ -1,0 +1,11 @@
+plugin:
+    name: 'wpjscc.docs::lang.plugin.name'
+    description: 'wpjscc.docs::lang.plugin.description'
+    author: wpjscc
+    icon: wn-icon-docs
+    replaces: {  }
+navigation:
+    main-menu-item:
+        label: 文档
+        url: wpjscc/docs/docs
+        icon: icon-book

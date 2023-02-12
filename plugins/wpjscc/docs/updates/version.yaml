@@ -1,0 +1,7 @@
+1.0.0: 'Initial version of the Winter Docs plugin.'
+1.0.1:
+    - 'Created table wpjscc_docs_docs'
+    - builder_table_create_wpjscc_docs_docs.php
+1.0.2:
+    - 'Updated table wpjscc_docs_docs'
+    - builder_table_update_wpjscc_docs_docs.php

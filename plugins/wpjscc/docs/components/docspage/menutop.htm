@@ -1,0 +1,24 @@
+{% for key,groupVersions in versions %}
+    <div class="
+        text-caption-mobile lg:text-caption font-semibold text-grey-500 dark:text-blue
+    ">
+    {# {{key}} #}
+    </div>
+    
+    <div class="flex flex-row divide-x divide-grey-500 dark:divide-blue-dark">
+        {% for index,groupVersion in groupVersions %}
+            
+
+        <a
+            href="{{ 'doc' | page({service:groupVersion.service,version:groupVersion.version,slug: slug }) }}"
+            class="
+                block text-center text-grey-800 dark:text-white opacity-30 hover:opacity-70 px-3 flex-grow 
+                {% if service == groupVersion.service and version == groupVersion.version %} opacity-70 {% endif %}
+            "
+        >
+            {{groupVersion.version}}
+        </a>
+        {% endfor %}
+
+    </div>
+{% endfor %}

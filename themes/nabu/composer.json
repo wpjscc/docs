@@ -1,0 +1,33 @@
+{
+    "name": "wpjscc/wn-nabu-theme",
+    "description": "An elegant theme designed for documentation sites.",
+    "type": "winter-theme",
+    "homepage": "https://github.com/wintercms/wn-nabu-theme",
+    "keywords": ["winter cms", "winter", "theme", "nabu", "documentation", "docs"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ben Thomson",
+            "email": "git@alfreido.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Winter CMS Maintainers",
+            "homepage": "https://wintercms.com",
+            "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/wintercms/wn-nabu-theme/issues",
+        "discord": "https://discord.gg/D5MFSPH6Ux",
+        "source": "https://github.com/wintercms/wn-nabu-theme"
+    },
+    "require": {
+        "composer/installers": "~1.11",
+        "wpjscc/wn-docs-plugin": "dev-main",
+        "winter/wn-search-plugin": "dev-main"
+    },
+    "extra": {
+        "installer-name": "nabu"
+    }
+}

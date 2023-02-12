@@ -1,0 +1,11 @@
+fields:
+    name:
+        label: NAME
+        span: auto
+        type: text
+    config:
+        label: Config
+        size: giant
+        language: php
+        span: full
+        type: codeeditor

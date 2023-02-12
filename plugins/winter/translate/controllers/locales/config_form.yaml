@@ -1,0 +1,7 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+form: ~/plugins/winter/translate/models/locale/fields.yaml
+modelClass: Winter\Translate\Models\Locale
+defaultRedirect: winter/translate/locales

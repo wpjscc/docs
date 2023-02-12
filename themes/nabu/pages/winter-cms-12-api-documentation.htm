@@ -1,0 +1,14 @@
+title = "Winter CMS 1.2 API Documentation"
+url = "/docs/v1.2/api/:slug?*"
+layout = "default"
+is_hidden = 0
+
+[docsPage]
+docId = "winter.winterdocs.winterbranch12api"
+pageSlug = "{{ :slug }}"
+==
+{% put page_title %}
+{{ title }} | {{ docName }}
+{% endput %}
+
+{% partial 'docsPage::contents' %}
