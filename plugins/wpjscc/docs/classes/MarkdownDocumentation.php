@@ -324,6 +324,10 @@ class MarkdownDocumentation extends BaseDocumentation
                     ],
                 ],
             ],
+            'slug_normalizer' => [
+                // ... other options here ...
+                'instance' => new PinYinSlug(),
+            ],
         ];
 
         $environment = new Environment($config);

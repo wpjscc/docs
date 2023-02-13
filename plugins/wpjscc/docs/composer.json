@@ -27,9 +27,15 @@
         "composer/installers": "~1.0",
         "nikic/php-parser": "^4.11.0",
         "phpdocumentor/reflection-docblock": "^5.2.2",
-        "winter/wn-translate-plugin": "^2.1"
+        "winter/wn-translate-plugin": "^2.1",
+        "overtrue/pinyin": "^5.0"
     },
     "extra": {
         "installer-name": "docs"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
     }
 }
