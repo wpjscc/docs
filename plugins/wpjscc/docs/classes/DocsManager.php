@@ -72,6 +72,9 @@ class DocsManager
                 if (!isset($doc['local'])) {
                     $doc['local'] = Config::get('wpjscc.docs::local');
                 }
+                
+                $doc['is_translate'] = $doc['is_translate'] ?? false;
+
                 $this->addDocumentation($pluginCode, $code, $doc);
             }
         }

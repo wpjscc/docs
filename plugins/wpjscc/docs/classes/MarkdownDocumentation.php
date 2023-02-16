@@ -12,6 +12,7 @@ use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Link;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Image;
+use League\CommonMark\Extension\Attributes\AttributesExtension;
 use League\CommonMark\Extension\DefaultAttributes\DefaultAttributesExtension;
 use League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension;
 use League\CommonMark\Extension\ExternalLink\ExternalLinkExtension;
@@ -29,6 +30,7 @@ use League\CommonMark\Renderer\HtmlRenderer;
 use Wpjscc\Docs\Classes\Contracts\PageList as PageListContact;
 use Winter\Storm\Exception\ApplicationException;
 use Winter\Storm\Support\Str;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 /**
  * Markdown Documentation instance.
@@ -217,6 +219,49 @@ class MarkdownDocumentation extends BaseDocumentation
             }
         }
 
+        if ($this->is_translate) {
+            $matching = (new Query)
+            ->where(Query::type(Text::class))
+            ->findAll($markdownAst);
+    
+           
+            $tr = new GoogleTranslate($this->local);
+    
+            $nodes = [];
+            $texts = [];
+            foreach ($matching as $k=>$node) {
+            
+                $text = $node->getLiteral();
+                $split = "\n\n";
+                if (trim($text)) {
+                    $nodes[] = $node;
+                    $texts[] = $text;
+                    if (mb_strlen(implode($split, $texts))>=4000) {
+                        $trTexts = explode($split, $tr->translate(implode($split, $texts)));
+                        foreach ($nodes as $n=>$node) {
+                            if (!isset($trTexts[$n])) {
+                                // dd($texts, $trTexts);
+                            }
+                            $node->setLiteral($trTexts[$n]);
+                        }
+                        $nodes = [];
+                        $texts = [];
+                    } 
+                }
+            }
+    
+            if (!empty($texts)) {
+                $trTexts = explode($split, $tr->translate(implode($split, $texts)));
+                foreach ($nodes as $n1=>$node1) {
+                    if (!isset($trTexts[$n1])) {
+
+                    }
+                    $node1->setLiteral($trTexts[$n1]);
+                }
+            }
+    
+        }
+
         // Render the document
         $renderer = new HtmlRenderer($this->environment);
         $rendered = $renderer->renderDocument($markdownAst);
@@ -280,6 +325,9 @@ class MarkdownDocumentation extends BaseDocumentation
     protected function createMarkdownEnvironment()
     {
         $config = [
+            'disallowed_raw_html' => [
+                'disallowed_tags' => ['title', 'textarea', 'xmp', 'iframe', 'noembed', 'noframes', 'script', 'plaintext'],
+            ],
             'default_attributes' => [
                 Heading::class => [
                     'class' => static function (Heading $node) {
@@ -326,13 +374,14 @@ class MarkdownDocumentation extends BaseDocumentation
             ],
             'slug_normalizer' => [
                 // ... other options here ...
-                'instance' => new PinYinSlug(),
+                'instance' => new HashSlug(),
             ],
         ];
 
         $environment = new Environment($config);
         $environment->addExtension(new CommonMarkCoreExtension());
         $environment->addExtension(new AutolinkExtension());
+        $environment->addExtension(new AttributesExtension());
         $environment->addExtension(new DefaultAttributesExtension());
         $environment->addExtension(new DisallowedRawHtmlExtension());
         $environment->addExtension(new ExternalLinkExtension());

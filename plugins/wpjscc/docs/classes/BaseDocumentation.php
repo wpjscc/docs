@@ -86,6 +86,9 @@ abstract class BaseDocumentation implements Documentation
      */
     protected array $ignoredPaths = [];
 
+    public $local;
+    public $is_translate;
+
     /**
      * Constructor.
      *
@@ -103,6 +106,8 @@ abstract class BaseDocumentation implements Documentation
         $this->source = $config['source'];
         $this->path = $config['path'] ?? null;
         $this->url = $config['url'] ?? null;
+        $this->local = $config['local'] ?? 'zh-CN';
+        $this->is_translate = $config['is_translate'] ?? false;
         $this->zipFolder = $config['zipFolder'] ?? '';
         $this->ignoredPaths = $config['ignorePaths'] ?? [];
         $this->repositoryUrl = $config['repository']['url'] ?? null;

@@ -28,7 +28,7 @@
         "nikic/php-parser": "^4.11.0",
         "phpdocumentor/reflection-docblock": "^5.2.2",
         "winter/wn-translate-plugin": "^2.1",
-        "overtrue/pinyin": "^5.0"
+        "dms/phpunit-arraysubset-asserts": "^0.1.0|^0.2.1"
     },
     "extra": {
         "installer-name": "docs"
