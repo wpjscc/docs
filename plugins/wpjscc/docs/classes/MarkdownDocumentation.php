@@ -106,17 +106,25 @@ class MarkdownDocumentation extends BaseDocumentation
      *
      * @return void
      */
-    public function process(): void
+    public function process($filename = ''): void
     {
         // Find Markdown files
         $pageMap = [];
         $markdownFiles = $this->getProcessFiles('md');
 
         foreach ($markdownFiles as $k => $file) {
-            echo 'total:'.count($markdownFiles)."\n";
-            echo 'complete:'.$k."\n";
-            $page = $this->processMarkdownFile($file);
-            $pageMap[$page['path']] = $page;
+            if ($filename && $filename == $file) {
+                echo 'only:'.$file;
+                $page = $this->processMarkdownFile($file);
+                $pageMap[$page['path']] = $page;
+                break;
+            } else {
+                echo 'total:'.count($markdownFiles)."\n";
+                echo 'complete:'.$k."\n";
+                $page = $this->processMarkdownFile($file);
+                $pageMap[$page['path']] = $page;
+            }
+           
         }
 
         // Order page map by path

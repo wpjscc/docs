@@ -120,9 +120,8 @@ class Plugin extends PluginBase
 
         foreach (Doc::get() as $doc) {
             if ($doc->config) {
-                $config = json_decode($doc->config, true);
-                if ($config) {
-                    $docs[$doc->key] = $config;
+                if ($doc->config) {
+                    $docs[$doc->key] = $doc->config;
                 }
             }
         }

@@ -4,8 +4,121 @@ fields:
         span: auto
         type: text
     config:
-        label: Config
-        size: giant
-        language: php
+        label: 语言配置
         span: full
-        type: codeeditor
+        type: nestedform
+        form:
+            fields:
+                name:
+                    label: 名称
+                    commentAbove: 会展示在前端
+                    span: auto
+                    required: true
+                type:
+                    label: 文档源类型
+                    type: dropdown
+                    span: auto
+                    required: true
+                    options:
+                        md: md
+                        php: php
+                source:
+                    label: 文档位置
+                    type: dropdown
+                    span: auto
+                    required: true
+                    commentAbove: 是一个压缩文件
+                    options:
+                        remote: remote
+                        local: local
+                url:
+                    label: zip 地址
+                    span: auto
+                    required: true
+                    trigger:
+                        action: show
+                        field: source
+                        condition: value[remote]
+                path:
+                    label: 本地相对于plugin的路径
+                    span: auto
+                    required: true
+                    trigger:
+                        action: show
+                        field: source
+                        condition: value[local]
+                service:
+                    label: 服务名称
+                    commentAbove: 'eg: wintercms'
+                    span: auto
+                    required: true
+                version:
+                    label: 版本
+                    commentAbove: 'eg: v1.2 会展示在前端'
+                    span: auto
+                    required: true
+                local:
+                    label: 语言
+                    commentAbove: 'eg: zh-CN 会展示在前端,也会以该字段作为翻译芋圆'
+                    span: auto
+                    required: true
+                is_translate:
+                    label: 是否翻译
+                    type: checkbox
+                    span: auto
+                        
+                sort:
+                    label: 排序
+                    commentAbove: '最小在前'
+                    type: number
+                    default: 10
+                    span: auto
+                
+                group:
+                    label: 分组展示
+                    commentAbove: 暂无用
+                    span: auto
+                component_type:
+                    label: 组件类型
+                    commentAbove: '会找到page中设置了该类型的页面作为展示页'
+                    type: dropdown
+                    options:
+                        doc: doc
+                    span: auto
+                    required: true
+                repository:
+                    label: 仓库配置
+                    type: nestedform
+                    span: auto
+                    required: true
+                    form:
+                        fields:
+                            url:
+                                label: 仓库url
+                                commentAbove: 'eg:https://github.com/wpjscc/wintercms-docs/tree/main-zh-cn'
+                            editUrl:
+                                label: 每个文档的编辑url
+                                commentAbove: 'eg:https://github.com/wpjscc/wintercms-docs/edit/main-zh-cn/%s.md'
+                            tocUrl:
+                                label: 左侧的toc编辑url
+                                commentAbove: 'eg:https://github.com/wpjscc/wintercms-docs/edit/main-zh-cn/config/toc-docs.yaml'
+                tocPath:
+                    label: tocPath
+                    commentAbove: '左侧菜单的路径'
+                    default: config/toc-docs.yaml
+                    span: auto
+                    required: true
+                ignorePaths:
+                    label: ignorePaths
+                    commentAbove: '文件夹下的文件不会被解析'
+                    type: taglist
+                    span: auto
+                ignoreTranslates:
+                    label: ignoreTranslates
+                    commentAbove: '文件名不会被翻译'
+                    type: taglist
+                    span: auto
+                image:
+                    label: image
+                    span: auto
+

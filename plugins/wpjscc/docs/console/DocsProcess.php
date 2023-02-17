@@ -18,7 +18,8 @@ class DocsProcess extends Command
      * @var string
      */
     protected $signature = 'docs:process
-        {id : The identifier of the documentation to process}';
+        {id : The identifier of the documentation to process}
+        {filename : The filename of the documentation to process}';
 
     /**
      * The console command description.
@@ -60,7 +61,7 @@ class DocsProcess extends Command
 
         // Process documentation
         $this->line(' - Processing documentation');
-        $doc->process();
+        $doc->process($this->argument('filename'));
         $doc->resetState();
 
         $pageList = $doc->getPageList();

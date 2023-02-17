@@ -29,7 +29,7 @@ class Doc extends Model
      * @var array Attribute names to encode and decode using JSON.
      */
     public $jsonable = [
-        
+        'config'
     ];
 
     public function beforeCreate()

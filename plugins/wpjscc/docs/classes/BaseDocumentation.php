@@ -88,6 +88,7 @@ abstract class BaseDocumentation implements Documentation
 
     public $local;
     public $is_translate;
+    public $ignoreTranslates;
 
     /**
      * Constructor.
@@ -110,6 +111,7 @@ abstract class BaseDocumentation implements Documentation
         $this->is_translate = $config['is_translate'] ?? false;
         $this->zipFolder = $config['zipFolder'] ?? '';
         $this->ignoredPaths = $config['ignorePaths'] ?? [];
+        $this->ignoreTranslates = $config['ignoreTranslates'] ?? [];
         $this->repositoryUrl = $config['repository']['url'] ?? null;
         $this->tocUrl = $config['repository']['tocUrl'] ?? null;
         $this->repositoryEditUrl = $config['repository']['editUrl'] ?? null;
@@ -347,7 +349,7 @@ abstract class BaseDocumentation implements Documentation
     /**
      * @inheritDoc
      */
-    abstract public function process(): void;
+    abstract public function process($filename = ''): void;
 
     /**
      * @inheritDoc

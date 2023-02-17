@@ -96,7 +96,7 @@ class PHPApiDocumentation extends BaseDocumentation
      *
      * @return void
      */
-    public function process(): void
+    public function process($filename = ''): void
     {
         if ($this->isLocalStorage()) {
             $basePath = $this->path;
