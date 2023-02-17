@@ -1,0 +1,15 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    force_translate_fields:
+        label: 强制翻译字段
+        type: taglist
+        mode: array
+    force_not_translate_fields:
+        label: 强制不翻译字段
+        type: taglist
+        mode: array
+    
+

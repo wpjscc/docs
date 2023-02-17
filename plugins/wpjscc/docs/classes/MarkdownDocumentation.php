@@ -31,6 +31,7 @@ use Wpjscc\Docs\Classes\Contracts\PageList as PageListContact;
 use Winter\Storm\Exception\ApplicationException;
 use Winter\Storm\Support\Str;
 use Stichoza\GoogleTranslate\GoogleTranslate;
+use Wpjscc\Docs\Models\TranslateSetting;
 
 /**
  * Markdown Documentation instance.
@@ -233,7 +234,7 @@ class MarkdownDocumentation extends BaseDocumentation
             
                 $text = $node->getLiteral();
                 $split = "\n\n";
-                if (trim($text)) {
+                if (trim($text) &&  !in_array(trim($text), TranslateSetting::get('force_not_translate_fields') ?: []) && (count(explode(' ', $text))>1 || in_array(trim($text), TranslateSetting::get('force_translate_fields') ?: []))) {
                     $nodes[] = $node;
                     $texts[] = $text;
                     if (mb_strlen(implode($split, $texts))>=4000) {

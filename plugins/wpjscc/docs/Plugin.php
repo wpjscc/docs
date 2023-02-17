@@ -181,4 +181,18 @@ class Plugin extends PluginBase
             ],
         ];
     }
+
+    public function registerSettings()
+    {
+        return [
+            'locales' => [
+                'label'       => '翻译设置',
+                'description' => '',
+                'icon'        => 'icon-language',
+                'class'       => 'Wpjscc\Docs\Models\TranslateSetting',
+                'order'       => 550,
+                'category'    => 'Docs'
+            ],
+        ];
+    }
 }
