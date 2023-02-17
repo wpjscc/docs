@@ -112,7 +112,9 @@ class MarkdownDocumentation extends BaseDocumentation
         $pageMap = [];
         $markdownFiles = $this->getProcessFiles('md');
 
-        foreach ($markdownFiles as $file) {
+        foreach ($markdownFiles as $k => $file) {
+            echo 'total:'.count($markdownFiles)."\n";
+            echo 'complete:'.$k."\n";
             $page = $this->processMarkdownFile($file);
             $pageMap[$page['path']] = $page;
         }
