@@ -121,6 +121,7 @@ class MarkdownDocumentation extends BaseDocumentation
             } else {
                 echo 'total:'.count($markdownFiles)."\n";
                 echo 'complete:'.$k."\n";
+                echo 'complete:'.$file."\n";
                 $page = $this->processMarkdownFile($file);
                 $pageMap[$page['path']] = $page;
             }
@@ -230,7 +231,7 @@ class MarkdownDocumentation extends BaseDocumentation
             }
         }
 
-        if ($this->is_translate) {
+        if ($this->is_translate && !in_array($path, $this->ignoreTranslates)) {
             $matching = (new Query)
             ->where(Query::type(Text::class))
             ->findAll($markdownAst);
@@ -271,6 +272,8 @@ class MarkdownDocumentation extends BaseDocumentation
                 }
             }
     
+        } else {
+            echo 'skip:' .$path;
         }
 
         // Render the document
