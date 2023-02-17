@@ -469,7 +469,7 @@ class MarkdownDocumentation extends BaseDocumentation
                         $sectionNav['children'][] = [
                             'title' => $pageTitle['title'],
                             'path'  => $pageTitle['rootPage'] ?? $path,
-                            'external' => $this->isExternalPath($pageTitle['rootPage'] ?? $path),
+                            'external' => $this->isExternalPath($pageTitle['rootPage'] ?? $path) ? true : ($pageTitle['external'] ?? false),
                             'root'  => $pageTitle['rootPage'] ?? $path,
                             'children' => $this->processTocSections($pageTitle['sections'] ?? []),
                         ];

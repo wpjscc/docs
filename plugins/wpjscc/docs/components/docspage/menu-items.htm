@@ -13,7 +13,7 @@
                 <span>{{ item.title }}</span>
             {% endif %}
 
-            {% if item.children %}
+            {% if item.children and not (item.external and item.root) %}
                 {% partial __SELF__ ~ '::menu-items' items=item.children depth=(depth + 1) %}
             {% endif %}
         </li>
