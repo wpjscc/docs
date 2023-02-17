@@ -465,16 +465,28 @@ class MarkdownDocumentation extends BaseDocumentation
 
             if (isset($section['pages'])) {
                 foreach ($section['pages'] as $path => $pageTitle) {
-                    $sectionNav['children'][] = [
-                        'title' => $pageTitle,
-                        'path' => $path,
-                        'external' => $this->isExternalPath($path),
-                    ];
+                    if (is_array($pageTitle)){
+                        $sectionNav['children'][] = [
+                            'title' => $pageTitle['title'],
+                            'path'  => $pageTitle['rootPage'] ?? $path,
+                            'external' => $this->isExternalPath($pageTitle['rootPage'] ?? $path),
+                            'root'  => $pageTitle['rootPage'] ?? $path,
+                            'children' => $this->processTocSections($pageTitle['sections'] ?? []),
+                        ];
+                    } else {
+                        $sectionNav['children'][] = [
+                            'title' => $pageTitle,
+                            'path' => $path,
+                            'external' => $this->isExternalPath($path),
+                        ];
+                    }
+                   
                 }
             }
 
             $navigation[] = $sectionNav;
         }
+
 
         return $navigation;
     }

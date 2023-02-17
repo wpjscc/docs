@@ -269,7 +269,7 @@ class DocsManager
         return ;
     }
 
-    public function getVersionsByServiceAndVersion($service, $version)
+    public function getVersionsByServiceAndLocal($service, $local)
     {
         $versions = [];
 
@@ -277,7 +277,7 @@ class DocsManager
             if ($doc['is_hidden'] ?? false) {
                 continue;
             }
-            if ($doc['service'] == $service) {
+            if ($doc['service'] == $service && $doc['local'] == $local) {
                 $versions[] = $doc;
             }
         }

@@ -118,6 +118,8 @@ class DocsPage extends ComponentBase
                 ]);
             }
         }
+        // dd($pageList);
+
         $pageList->setActivePage($page);
 
         $this->page['docId'] = $docs->getIdentifier();
@@ -135,7 +137,7 @@ class DocsPage extends ComponentBase
         $this->page['editUrl'] = $page->getEditUrl();
         $this->page['pageNav'] = $page->getNavigation();
         $this->page['frontMatter'] = $page->getFrontMatter();
-        $this->page['versions'] = $docsManager->getVersionsByServiceAndVersion($this->property('service'), $this->property('version'));
+        $this->page['versions'] = $docsManager->getVersionsByServiceAndLocal($this->property('service'), $activeLocale);
     }
 
     public function onLoadPage()
@@ -204,7 +206,7 @@ class DocsPage extends ComponentBase
                 'service' => $this->property('service'),
                 'version' => $this->property('version'),
                 'slug' => $path,
-                'versions' => $docsManager->getVersionsByServiceAndVersion($this->property('service'), $this->property('version')),
+                'versions' => $docsManager->getVersionsByServiceAndLocal($this->property('service'), $activeLocale),
             ]),
             '#docs-menu' => $this->renderPartial('@menu', [
                 'mainNav' => $pageList->getNavigation(),
@@ -212,7 +214,7 @@ class DocsPage extends ComponentBase
                 'service' => $this->property('service'),
                 'version' => $this->property('version'),
                 'slug' => $path,
-                'versions' => $docsManager->getVersionsByServiceAndVersion($this->property('service'), $this->property('version')),
+                'versions' => $docsManager->getVersionsByServiceAndLocal($this->property('service'), $activeLocale),
                 'docName' => $docs->getName(),
                 'docType' => $docs->getType(),
                 'sourceUrl' => $docs->getRepositoryUrl(),

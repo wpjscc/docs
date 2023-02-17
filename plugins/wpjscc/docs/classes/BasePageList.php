@@ -56,6 +56,7 @@ abstract class BasePageList implements PageList
     public function setActivePage(Page $page): void
     {
         $this->activePage = $page;
+        $this->guessNavigation($page);
         $fullNav = $this->navigation;
 
         $childIterator = function (&$nav) use (&$childIterator) {
@@ -157,4 +158,88 @@ abstract class BasePageList implements PageList
     {
         return $this->docs->getIdentifier();
     }
+
+    public function guessNavigation(Page $page)
+    {
+        $path = $page->getPath();
+        // dd($this->navigation);
+        $guessNavigation = function ($navigation, $isNest = false) use (&$guessNavigation, $path) {
+            foreach ($navigation as $nav) {
+               
+                if (isset($nav['root'])) {
+                    if ($this->guessEqualPath($nav['path'], $path)) {
+                        $this->navigation  = $nav['children'];
+                        $this->rootPage  = $this->pages[$nav['root']];
+                        break;
+                    }
+                    if (!empty($nav['children'])) {
+
+                        $state = $guessNavigation($nav['children'], true);
+                        if ($state) {
+                            $this->navigation  = $nav['children'];
+                            $this->rootPage  = $this->pages[$nav['root']];
+                            break;
+                        }
+                    }
+
+                    // dd($nav, $path);
+
+                } else {
+
+                    // 是配置项
+                    if (isset($nav['path'])) {
+                        if ($isNest) {
+                            if ($this->guessEqualPath($nav['path'], $path)) {
+                                return true;
+                            } 
+                            if (!empty($nav['children'])) {
+                                $state = $guessNavigation($nav['children'], true);   
+                                if ($state) {
+                                    return true;
+                                }
+                            }
+                        }
+                       
+                    } else {
+                        if (!empty($nav['children'])) {
+                            if ($isNest) {
+                                $state = $guessNavigation($nav['children'], true);
+                                if ($state) {
+                                    return true;
+                                }
+                            } else {
+                                $guessNavigation($nav['children']);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return false;
+        };
+
+        $guessNavigation($this->navigation);
+  
+    }
+
+    public function guessEqualPath($navPath, $pagePath)
+    {
+        $pathSplits = explode('-', $pagePath);
+        if (count($pathSplits) > 2) {
+            // 第一个是目录
+            $dir = array_shift($pathSplits);
+            $guessPath = $dir. '/'. implode('-', $pathSplits);
+        } else {
+            $guessPath = implode('/', $pathSplits);
+        }
+
+
+        if ($navPath == $pagePath || $navPath == $guessPath) {
+            
+            return true;
+        }
+        return false;
+    }
+
+
 }
