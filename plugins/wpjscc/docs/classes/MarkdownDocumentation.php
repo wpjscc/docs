@@ -239,9 +239,7 @@ class MarkdownDocumentation extends BaseDocumentation
 
                 if (trim($text) &&  
                 (count(explode(' ', $text))>1 || in_array(trim($text), TranslateSetting::get('force_translate_fields') ?: []))) {
-                    foreach ($force_not_translate_fields as $k => $force_not_translate_field) {
-                        $text = str_replace($force_not_translate_field, '<span translate="no" id="'.$k.'">'.$force_not_translate_field.'</span>', $text);
-                    }
+                   
                     $nodes[] = $node;
                     $texts[] = $text;
                     if (mb_strlen(implode($split, $texts))>=4000) {
@@ -250,8 +248,8 @@ class MarkdownDocumentation extends BaseDocumentation
                             if (!isset($trTexts[$n])) {
                                 // dd($texts, $trTexts);
                             }
-                            foreach ($force_not_translate_fields as $k=>$force_not_translate_field) {
-                                $trTexts[$n] = preg_replace('/<(\s?)span(\s?)translate(\s?)=(\s?)"(\s?)no"(\s?)id(\s?)=(\s?)"(\s?)'.$k.'(\s?)">(.*?)<\\/span>/', $force_not_translate_field, $trTexts[$n]);
+                            foreach ($force_not_translate_fields as $force_not_translate_field) {
+                                $trTexts[$n] = str_replace($force_not_translate_field['zh-CN'], $force_not_translate_field['en'], $trTexts[$n]);
                             }
                             $node->setLiteral($trTexts[$n]);
                         }
@@ -268,7 +266,7 @@ class MarkdownDocumentation extends BaseDocumentation
 
                     }
                     foreach ($force_not_translate_fields as $k1 => $force_not_translate_field) {
-                        $trTexts[$n1] = preg_replace('/<(\s?)span(\s?)translate(\s?)=(\s?)"(\s?)no"(\s?)id(\s?)=(\s?)"(\s?)'.$k1.'(\s?)">(.*?)<\\/span>/', $force_not_translate_field, $trTexts[$n1]);
+                        $trTexts[$n1] = str_replace($force_not_translate_field['zh-CN'], $force_not_translate_field['en'], $trTexts[$n1]);
                     }
                     $node1->setLiteral($trTexts[$n1]);
                 }

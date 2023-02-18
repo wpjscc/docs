@@ -9,7 +9,17 @@ fields:
         mode: array
     force_not_translate_fields:
         label: 强制不翻译字段
-        type: taglist
-        mode: array
+        type: repeater
+        form:
+            fields:
+                zh-CN:
+                    label: 中文
+                    span: auto
+                en:
+                    label: 英文
+                    span: auto
+
+                        
+        
     
 
