@@ -186,6 +186,11 @@ class DocsPage extends ComponentBase
             }
 
             if (empty($page)) {
+                Flash::error('404');
+                $page = $pageList->getRootPage();
+                return redirect()->to($this->controller->pageUrl($this->page->baseFileName, [
+                    'slug' => $page->getPath(),
+                ]));
                 throw new AjaxException([
                     'error' => 'The page that you have requested does not exist',
                 ]);

@@ -15,7 +15,7 @@ fields:
                     span: auto
                     required: true
                 is_hidden:
-                    label: 是否展示文档页
+                    label: 是否隐藏文档
                     type: checkbox
                 type:
                     label: 文档源类型
@@ -120,6 +120,12 @@ fields:
                 ignoreTranslates:
                     label: ignoreTranslates
                     commentAbove: '文件名不会被翻译'
+                    type: taglist
+                    span: auto
+                    mode: array
+                forceTranslates:
+                    label: forceTranslates
+                    commentAbove: '文件会强制翻译'
                     type: taglist
                     span: auto
                     mode: array

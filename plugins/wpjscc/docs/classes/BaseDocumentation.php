@@ -89,6 +89,7 @@ abstract class BaseDocumentation implements Documentation
     public $local;
     public $is_translate;
     public $ignoreTranslates;
+    public $forceTranslates;
 
     /**
      * Constructor.
@@ -112,6 +113,7 @@ abstract class BaseDocumentation implements Documentation
         $this->zipFolder = $config['zipFolder'] ?? '';
         $this->ignoredPaths = $config['ignorePaths'] ?? [];
         $this->ignoreTranslates = $config['ignoreTranslates'] ?? [];
+        $this->forceTranslates = $config['forceTranslates'] ?? [];
         $this->repositoryUrl = $config['repository']['url'] ?? null;
         $this->tocUrl = $config['repository']['tocUrl'] ?? null;
         $this->repositoryEditUrl = $config['repository']['editUrl'] ?? null;

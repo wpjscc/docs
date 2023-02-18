@@ -113,19 +113,11 @@ class MarkdownDocumentation extends BaseDocumentation
         $markdownFiles = $this->getProcessFiles('md');
 
         foreach ($markdownFiles as $k => $file) {
-            if ($filename && $filename == $file) {
-                echo 'only:'.$file;
-                $page = $this->processMarkdownFile($file);
-                $pageMap[$page['path']] = $page;
-                break;
-            } else {
-                echo 'total:'.count($markdownFiles)."\n";
-                echo 'complete:'.$k."\n";
-                echo 'complete:'.$file."\n";
-                $page = $this->processMarkdownFile($file);
-                $pageMap[$page['path']] = $page;
-            }
-           
+            echo 'total:'.count($markdownFiles)."\n";
+            echo 'complete:'.$k."\n";
+            echo 'complete:'.$file."\n";
+            $page = $this->processMarkdownFile($file, $filename);
+            $pageMap[$page['path']] = $page;
         }
 
         // Order page map by path
@@ -163,7 +155,7 @@ class MarkdownDocumentation extends BaseDocumentation
      *  - `fileName`: The path to the file, with the final extension (.htm)
      *  - `title`: The title of the page
      */
-    public function processMarkdownFile(string $path): array
+    public function processMarkdownFile(string $path, $filename = ''): array
     {
         $file = $this->getProcessPath($path);
         $directory = (str_contains($path, '/')) ? str_replace(File::basename($path), '', $path) : '';
@@ -231,21 +223,25 @@ class MarkdownDocumentation extends BaseDocumentation
             }
         }
 
-        if ($this->is_translate && !in_array($path, $this->ignoreTranslates)) {
+        if (($this->is_translate && !in_array($path, $this->ignoreTranslates))|| ($filename == $path) || (in_array($path, $this->forceTranslates))) {
             $matching = (new Query)
             ->where(Query::type(Text::class))
             ->findAll($markdownAst);
-    
-           
+            $split = "\n\n";
             $tr = new GoogleTranslate($this->local);
+            $force_not_translate_fields = TranslateSetting::get('force_not_translate_fields') ?: [];
+
     
             $nodes = [];
             $texts = [];
             foreach ($matching as $k=>$node) {
-            
                 $text = $node->getLiteral();
-                $split = "\n\n";
-                if (trim($text) &&  !in_array(trim($text), TranslateSetting::get('force_not_translate_fields') ?: []) && (count(explode(' ', $text))>1 || in_array(trim($text), TranslateSetting::get('force_translate_fields') ?: []))) {
+
+                if (trim($text) &&  
+                (count(explode(' ', $text))>1 || in_array(trim($text), TranslateSetting::get('force_translate_fields') ?: []))) {
+                    foreach ($force_not_translate_fields as $k => $force_not_translate_field) {
+                        $text = str_replace($force_not_translate_field, '<span translate="no" id="'.$k.'">'.$force_not_translate_field.'</span>', $text);
+                    }
                     $nodes[] = $node;
                     $texts[] = $text;
                     if (mb_strlen(implode($split, $texts))>=4000) {
@@ -253,6 +249,9 @@ class MarkdownDocumentation extends BaseDocumentation
                         foreach ($nodes as $n=>$node) {
                             if (!isset($trTexts[$n])) {
                                 // dd($texts, $trTexts);
+                            }
+                            foreach ($force_not_translate_fields as $k=>$force_not_translate_field) {
+                                $trTexts[$n] = preg_replace('/<(\s?)span(\s?)translate(\s?)=(\s?)"(\s?)no"(\s?)id(\s?)=(\s?)"(\s?)'.$k.'(\s?)">(.*?)<\\/span>/', $force_not_translate_field, $trTexts[$n]);
                             }
                             $node->setLiteral($trTexts[$n]);
                         }
@@ -267,6 +266,9 @@ class MarkdownDocumentation extends BaseDocumentation
                 foreach ($nodes as $n1=>$node1) {
                     if (!isset($trTexts[$n1])) {
 
+                    }
+                    foreach ($force_not_translate_fields as $k1 => $force_not_translate_field) {
+                        $trTexts[$n1] = preg_replace('/<(\s?)span(\s?)translate(\s?)=(\s?)"(\s?)no"(\s?)id(\s?)=(\s?)"(\s?)'.$k1.'(\s?)">(.*?)<\\/span>/', $force_not_translate_field, $trTexts[$n1]);
                     }
                     $node1->setLiteral($trTexts[$n1]);
                 }
@@ -486,6 +488,7 @@ class MarkdownDocumentation extends BaseDocumentation
 
             $navigation[] = $sectionNav;
         }
+
         return $navigation;
     }
 
