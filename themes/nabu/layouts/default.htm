@@ -49,7 +49,14 @@ forceUrl = 0
                     <div class="
                         text-caption-mobile lg:text-caption font-semibold text-grey-500 dark:text-blue
                     ">
-                    Version {{version}}
+                    Version 
+                     <a
+                            href="{{ 'doc' | page({service:service,version:version,slug: '' }) }}"
+                            class="text-center h-7 w-1/3 text-grey-800 dark:text-white opacity-30 hover:opacity-70"
+                           
+                        >
+                        {{version}}
+                        </a>
                     </div>
                     <div id="docs-menutop">
                         {% partial  docsPage ~ "::menutop" versions=versions version=version service=service slug=slug %}
