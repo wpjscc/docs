@@ -10,6 +10,7 @@ use Winter\Translate\Classes\Translator;
 
 class DocsPage extends ComponentBase
 {
+
     /**
      * @var Winter\Translate\Classes\Translator Translator object.
      */
@@ -118,8 +119,6 @@ class DocsPage extends ComponentBase
                 ]);
             }
         }
-        // dd($pageList);
-
         $pageList->setActivePage($page);
 
         $this->page['docId'] = $docs->getIdentifier();

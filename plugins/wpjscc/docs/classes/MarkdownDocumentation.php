@@ -486,8 +486,6 @@ class MarkdownDocumentation extends BaseDocumentation
 
             $navigation[] = $sectionNav;
         }
-
-
         return $navigation;
     }
 

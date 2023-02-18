@@ -3,7 +3,11 @@
         <li{% if item.active %} class="active"{% elseif item.childActive %} class="child-active"{% endif %}>
             {% if item.path %}
                 {% if item.external %}
-                    <a href="{{ item.path }}" class="external-link"{% if item.path|slice(0, 1) != '/' and item.path|slice(0, 3) != '../' %} target="external"{% endif %}>
+                    {% if item.root %}
+                        <a href="{{ this.page.fileName | page({ slug: item.path }) }}" class="external-link" target="_blank">
+                    {% else %}
+                        <a href="{{ item.path }}" class="external-link"{% if item.path|slice(0, 1) != '/' and item.path|slice(0, 3) != '../' %} target="external"{% endif %}>
+                    {% endif %}
                 {% else %}
                     <a href="{{ this.page.fileName | page({ slug: item.path }) }}">
                 {% endif %}

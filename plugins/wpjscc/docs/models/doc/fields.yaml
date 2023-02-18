@@ -115,14 +115,14 @@ fields:
                     label: ignorePaths
                     commentAbove: '文件夹下的文件不会被解析'
                     type: taglist
-                    mode: array
                     span: auto
+                    mode: array
                 ignoreTranslates:
                     label: ignoreTranslates
                     commentAbove: '文件名不会被翻译'
                     type: taglist
-                    mode: array
                     span: auto
+                    mode: array
                 image:
                     label: image
                     span: auto

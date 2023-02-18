@@ -233,7 +233,6 @@ abstract class BasePageList implements PageList
             $guessPath = implode('/', $pathSplits);
         }
 
-
         if ($navPath == $pagePath || $navPath == $guessPath) {
             
             return true;
