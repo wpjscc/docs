@@ -35,7 +35,9 @@ php artisan serve
 
 ## docker
 
+```
 git clone git@github.com:wpjscc/docs.git ~/docs
+```
 
 ```
 
@@ -46,7 +48,6 @@ php artisan key:gene
 php artisan winter:up
 # 下载文档并翻译
 php artisan doc:process wpjscc.docs.wintercmszhcn
-php artisan 
 php artisan serve
 
 ```
