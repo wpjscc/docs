@@ -17,12 +17,7 @@ class SeedAllTables extends Seeder
         Doc::create([
             'name' => 'Wintercms 中文文档',
             'key' => 'wintercms-zh-cn',
-            'config' => '{"name":"Wintercms","type":"md","source":"remote","service":"wintercms","version":"v1.2","component_type":"doc","group":"中文","local":"zh-cn","sort":1,"url":"https://github.com/wpjscc/wintercms-docs/archive/refs/tags/v1.2-zh-cn.zip","repository":{"editUrl":"https://github.com/wpjscc/wintercms-docs/edit/main-zh-cn/%s.md","tocUrl":"https://github.com/wpjscc/wintercms-docs/edit/main-zh-cn/config/toc-docs.yaml","url":"https://github.com/wpjscc/wintercms-docs/tree/main-zh-cn"}}',
-        ]);
-        Doc::create([
-            'name' => 'Wintercms 英文文档',
-            'key' => 'wintercms-en',
-            'config' => '{"name":"Wintercms","type":"md","source":"remote","service":"wintercms","version":"v1.2","component_type":"doc","group":"英文","is_hidden":true,"local":"en","sort":10,"url":"https://github.com/wpjscc/wintercms-docs/archive/refs/tags/v1.2-en.zip","repository":{"editUrl":"https://github.com/wpjscc/wintercms-docs/edit/main/%s.md","tocUrl":"https://github.com/wpjscc/wintercms-docs/edit/main/config/toc-docs.yaml","url":"https://github.com/wpjscc/wintercms-docs"}}',
+            'config' => '{"name":"Wintercms","is_hidden":"0","type":"md","source":"remote","url":"https:\/\/github.com\/wpjscc\/wintercms-docs\/archive\/refs\/tags\/v1.2-zh-cn.zip","path":"","service":"wintercms","version":"v1.2","local":"zh-CN","is_translate":"1","sort":"1","group":"\u4e2d\u6587","component_type":"doc","repository":{"url":"https:\/\/github.com\/wpjscc\/wintercms-docs\/tree\/main-zh-cn","editUrl":"https:\/\/github.com\/wpjscc\/wintercms-docs\/edit\/main-zh-cn\/%s.md","tocUrl":"https:\/\/github.com\/wpjscc\/wintercms-docs\/edit\/main-zh-cn\/config\/toc-docs.yaml"},"tocPath":"","forceTranslates":["architecture-introduction.md"],"image":""}',
         ]);
 
     }

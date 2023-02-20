@@ -15,9 +15,8 @@ composer install
 cp .env.example .env
 php artisan key:gene
 php artisan winter:up
-# 下载文档
+# 下载文档并翻译
 php artisan doc:process wpjscc.docs.wintercmszhcn
-php artisan doc:process wpjscc.docs.wintercmsen
 php artisan serve
 ```
 
@@ -29,9 +28,8 @@ cd docs
 cp .env.example .env
 php artisan key:gene
 php artisan winter:up
-# 下载文档
+# 下载文档并翻译
 php artisan doc:process wpjscc.docs.wintercmszhcn
-php artisan doc:process wpjscc.docs.wintercmsen
 php artisan serve
 ```
 
@@ -46,9 +44,8 @@ docker run -p 8000:8000 -v ~/docs:/www --rm -it wpjscc/php:8.0.9-fpm-alpine3.13 
 cp .env.example .env
 php artisan key:gene
 php artisan winter:up
-# 下载文档
+# 下载文档并翻译
 php artisan doc:process wpjscc.docs.wintercmszhcn
-php artisan doc:process wpjscc.docs.wintercmsen
 php artisan 
 php artisan serve
 
