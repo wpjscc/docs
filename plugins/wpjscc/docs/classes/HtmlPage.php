@@ -73,6 +73,7 @@ class HtmlPage implements Page
     public function load(string $pageUrl = '')
     {
         $content = $this->docs->getProcessedFile($this->path . '.htm');
+
         if (is_null($content)) {
             throw new ApplicationException(
                 sprintf(
@@ -86,7 +87,7 @@ class HtmlPage implements Page
             libxml_use_internal_errors(true);
 
             $dom = new \DOMDocument('1.0', 'UTF-8');
-            $dom->loadHTML($content);
+            $dom->loadHTML('<!DOCTYPE html><meta charset="UTF-8">'.$content);
             $body = $dom->getElementsByTagName('body');
 
             if ($body->length >= 1) {
@@ -128,7 +129,7 @@ class HtmlPage implements Page
                 }
             }
 
-            $this->content = utf8_decode($dom->saveHTML($body));
+            $this->content = $dom->saveHTML($body);
         } else {
             $this->navigation = [];
             $this->content = $content;
@@ -172,12 +173,12 @@ class HtmlPage implements Page
 
                     if (!is_null($linkNode)) {
                         $navItem = [
-                            'title' => utf8_decode($linkNode->textContent),
+                            'title' => $linkNode->textContent,
                             'anchor' => $linkNode->attributes->getNamedItem('href')->value
                         ];
                     } else {
                         $navItem = [
-                            'title' => utf8_decode($spanNode->textContent),
+                            'title' => $spanNode->textContent,
                         ];
                     }
 
