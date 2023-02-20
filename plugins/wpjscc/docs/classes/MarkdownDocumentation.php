@@ -386,10 +386,10 @@ class MarkdownDocumentation extends BaseDocumentation
                     ],
                 ],
             ],
-            'slug_normalizer' => [
-                // ... other options here ...
-                'instance' => new HashSlug(),
-            ],
+            // 'slug_normalizer' => [
+            //     // ... other options here ...
+            //     'instance' => new HashSlug(),
+            // ],
         ];
 
         $environment = new Environment($config);
