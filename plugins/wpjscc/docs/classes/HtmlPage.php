@@ -126,6 +126,10 @@ class HtmlPage implements Page
                         $pagePath = str_after($href->value, 'path:');
                         $href->value = $pageUrl . '/' . $pagePath;
                     }
+                    
+                    if ($href !== false && str_contains(urldecode($href->value), '/docs/{{version}}')) {
+                        $href->value = str_replace('/docs/{{version}}', '.', urldecode($href->value));
+                    }
                 }
             }
 
