@@ -1,4 +1,5 @@
 
+
 ## Docs
 
 文档系统，支持多语言
@@ -67,3 +68,13 @@ http://127.0.0.1:8000/backend
 
 * https://github.com/wintercms/wn-nabu-theme
 * https://github.com/wintercms/docs
+
+
+## other
+
+build docker image
+
+```
+docker build -t registry.cn-shanghai.aliyuncs.com/wpjscc/docs:8.0.9-fpm-alpine3.13 . -f Dockerfile
+docker push registry.cn-shanghai.aliyuncs.com/wpjscc/docs:8.0.9-fpm-alpine3.13
+```
