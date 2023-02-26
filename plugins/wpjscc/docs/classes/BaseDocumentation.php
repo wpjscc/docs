@@ -14,6 +14,7 @@ use Wpjscc\Docs\Classes\Contracts\Documentation;
 use Wpjscc\Docs\Classes\Contracts\Page;
 use Wpjscc\Docs\Classes\Contracts\PageList;
 use Winter\Storm\Filesystem\Zip;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 abstract class BaseDocumentation implements Documentation
 {
@@ -90,6 +91,7 @@ abstract class BaseDocumentation implements Documentation
     public $is_translate;
     public $ignoreTranslates;
     public $forceTranslates;
+    public $tr;
 
     /**
      * Constructor.
@@ -117,6 +119,7 @@ abstract class BaseDocumentation implements Documentation
         $this->repositoryUrl = $config['repository']['url'] ?? null;
         $this->tocUrl = $config['repository']['tocUrl'] ?? null;
         $this->repositoryEditUrl = $config['repository']['editUrl'] ?? null;
+        $this->tr = new GoogleTranslate($this->local);
     }
 
     /**

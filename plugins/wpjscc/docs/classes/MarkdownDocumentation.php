@@ -30,7 +30,6 @@ use League\CommonMark\Renderer\HtmlRenderer;
 use Wpjscc\Docs\Classes\Contracts\PageList as PageListContact;
 use Winter\Storm\Exception\ApplicationException;
 use Winter\Storm\Support\Str;
-use Stichoza\GoogleTranslate\GoogleTranslate;
 use Wpjscc\Docs\Models\TranslateSetting;
 
 /**
@@ -228,7 +227,7 @@ class MarkdownDocumentation extends BaseDocumentation
             ->where(Query::type(Text::class))
             ->findAll($markdownAst);
             $split = "\n\n";
-            $tr = new GoogleTranslate($this->local);
+            $tr = $this->tr;
             $force_not_translate_fields = TranslateSetting::get('force_not_translate_fields') ?: [];
 
     
@@ -459,7 +458,7 @@ class MarkdownDocumentation extends BaseDocumentation
 
         foreach ($sections as $title => $section) {
             $sectionNav = [
-                'title' => $title,
+                'title' => $this->tr->translate($title),
                 'children' => [],
             ];
 
@@ -467,7 +466,7 @@ class MarkdownDocumentation extends BaseDocumentation
                 foreach ($section['pages'] as $path => $pageTitle) {
                     if (is_array($pageTitle)){
                         $sectionNav['children'][] = [
-                            'title' => $pageTitle['title'],
+                            'title' => $this->tr->translate($pageTitle['title']),
                             'path'  => $pageTitle['rootPage'] ?? $path,
                             'external' => $this->isExternalPath($pageTitle['rootPage'] ?? $path) ? true : ($pageTitle['external'] ?? false),
                             'root'  => $pageTitle['rootPage'] ?? $path,
@@ -475,7 +474,7 @@ class MarkdownDocumentation extends BaseDocumentation
                         ];
                     } else {
                         $sectionNav['children'][] = [
-                            'title' => $pageTitle,
+                            'title' => $this->tr->translate($pageTitle),
                             'path' => $path,
                             'external' => $this->isExternalPath($path),
                         ];
