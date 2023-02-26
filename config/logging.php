@@ -60,7 +60,12 @@ return [
             'days' => 14,
             'driver' => 'daily',
             'level' => env('LOG_LEVEL', 'debug'),
-            'path' => storage_path('logs/system.log'),
+            'path' => storage_path('logs/laravel.log'),
+             // 指定使用的日志格式化组件类
+            'tap'    => [
+                \Shallowman\Laralog\Formatter\LaralogFormatter::class,
+                \Shallowman\Laralog\Processor\LaralogProcessor::class,
+            ],
         ],
         'slack' => [
             'driver' => 'slack',
