@@ -82,11 +82,12 @@ class Plugin extends PluginBase
                 'name' => $doc['name'],
                 'model' => function () use ($doc) {
                     if ($doc['instance'] instanceof MarkdownDocumentation) {
+                        MarkdownPageIndex::clearBootedModels();
                         MarkdownPageIndex::setPageList($doc['instance']->getPageList());
 
                         return new MarkdownPageIndex();
                     }
-
+                    PHPApiPageIndex::clearBootedModels();
                     PHPApiPageIndex::setPageList($doc['instance']->getPageList());
 
                     return new PHPApiPageIndex();
@@ -193,5 +194,41 @@ class Plugin extends PluginBase
                 'category'    => 'Docs'
             ],
         ];
+    }
+
+    public static function writeToFile($sql)
+    {
+
+        // $sql is an object with the properties:
+        //  sql: The query
+        //  bindings: the sql query variables
+        //  time: The execution time for the query
+        //  connectionName: The name of the connection
+
+        // To save the executed queries to file:
+        // Process the sql and the bindings:
+        foreach ($sql->bindings as $i => $binding) {
+            if ($binding instanceof \DateTime) {
+                $sql->bindings[$i] = $binding->format('\'Y-m-d H:i:s\'');
+            } else {
+                if (is_string($binding)) {
+                    $sql->bindings[$i] = "'$binding'";
+                }
+            }
+        }
+
+        // Insert bindings into query
+        $query = str_replace(['%', '?'], ['%%', '%s'], $sql->sql);
+
+        $query = vsprintf($query, $sql->bindings);
+
+        $runtime = $sql->time . 'ms';
+        // Save the query to file
+        $logFile = fopen(
+            storage_path('logs' . DIRECTORY_SEPARATOR . date('Y-m-d') . '_query.log'),
+            'a+'
+        );
+        fwrite($logFile, date('Y-m-d H:i:s') . ': ' . $query . PHP_EOL . $runtime. PHP_EOL);
+        fclose($logFile);
     }
 }
