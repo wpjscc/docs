@@ -86,7 +86,7 @@ return [
         'redis' => [
             'host' => env('REDIS_HOST', null),
             'password' => env('REDIS_PASSWORD', ''),
-            'port' => env('REDIS_PORT', null),
+            'port' => 6379,
         ],
     ],
 
@@ -115,7 +115,7 @@ return [
     */
 
     'redis' => [
-        'client' => env('REDIS_CLIENT', 'phpredis'),
+        'client' => env('REDIS_CLIENT', 'predis'),
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
             'prefix' => env('REDIS_PREFIX', str_slug(env('APP_NAME', 'winter'), '_') . '_database_'),
