@@ -40,15 +40,9 @@ class ChatgptTranslate
         }
         $deferred = new \React\Promise\Deferred();
         $eof = <<<EOF
-            Translate to Chinese. Use this format:
-
-            English: {English text as JSON quoted string}
-            Chinese: {中文翻译，同时引用}
-            
-            English: "$text"
-            
-            Chinese:
-
+        ### Instruction ###
+        Translate the text below to Chinese:
+        Text: "$text"
         EOF;
         $es = new \Clue\React\EventSource\EventSource([
                 "POST",
