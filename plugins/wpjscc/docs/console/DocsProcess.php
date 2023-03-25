@@ -19,7 +19,8 @@ class DocsProcess extends Command
      */
     protected $signature = 'docs:process
         {id : The identifier of the documentation to process}
-        {filename? : The filename of the documentation to process}';
+        {filename? : The filename of the documentation to process}
+        {proxy? : The proxy';
 
     /**
      * The console command description.

@@ -41,7 +41,8 @@
         "stichoza/google-translate-php": "^5.1",
         "wpjscc/wn-nabu-theme": "dev-main",
         "predis/predis": "^2.1",
-        "wpjscc/laralog": "^2.0"
+        "wpjscc/laralog": "^2.0",
+        "clue/http-proxy-react": "^1.8"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5.8",

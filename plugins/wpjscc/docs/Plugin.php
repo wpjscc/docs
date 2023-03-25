@@ -61,6 +61,7 @@ class Plugin extends PluginBase
         $this->commands([
             \Wpjscc\Docs\Console\DocsList::class,
             \Wpjscc\Docs\Console\DocsProcess::class,
+            \Wpjscc\Docs\Console\DocsTranslate::class,
         ]);
     }
 

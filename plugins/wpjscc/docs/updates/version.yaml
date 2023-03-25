@@ -8,3 +8,6 @@
 1.0.4:
     - 'seed all tables.php'
     - seed_all_tables.php
+1.0.5:
+    - 'create table'
+    - builder_table_create_wpjscc_docs_translate_content.php

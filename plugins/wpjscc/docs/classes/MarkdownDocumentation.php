@@ -171,6 +171,9 @@ class MarkdownDocumentation extends BaseDocumentation
         $parts = $frontMatterParser->parse($contents);
         $frontMatter = $parts->getFrontMatter();
         $contents = $parts->getContent();
+
+        $contents = (new TranslateContent($this->identifier, $this->local, $path, $contents))->getTranslateContents();
+
         $markdownParser = new MarkdownParser($this->environment);
         $markdownAst = $markdownParser->parse($contents);
 
@@ -222,7 +225,7 @@ class MarkdownDocumentation extends BaseDocumentation
             }
         }
 
-        if (($this->is_translate && !in_array($path, $this->ignoreTranslates))|| ($filename == $path) || (in_array($path, $this->forceTranslates))) {
+        if (false && ($this->is_translate && !in_array($path, $this->ignoreTranslates))|| ($filename == $path) || (in_array($path, $this->forceTranslates))) {
             $matching = (new Query)
             ->where(Query::type(Text::class))
             ->findAll($markdownAst);

@@ -1,0 +1,8 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    id:
+        label: 'wpjscc.docs::lang.models.general.id'
+        disabled: true
