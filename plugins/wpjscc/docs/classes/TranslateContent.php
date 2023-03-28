@@ -51,8 +51,7 @@ class TranslateContent
                 }
 
                 $data[] = $model->header_md;
-                $data[] = trim($model->to_contents, '"');
-                $data[] = trim($model->to_contents, '“');
+                $data[] = $model->to_contents;
             }
         }
 
