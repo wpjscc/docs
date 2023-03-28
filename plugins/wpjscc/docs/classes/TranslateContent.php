@@ -21,17 +21,17 @@ class TranslateContent
 
     public function getTranslateContents()
     {
-        $markdownSplits = (new MarkdownSplit())->splitMarkdownAtLevel($this->contents, true, $level = 5);
+        $markdownSplits = (new MarkdownSplit())->splitMarkdown($this->contents);
 
         $data = [];
         foreach ($markdownSplits as $key => $markdownSplit) {
-            if ($markdownSplit['header_md']) {
-                $headers[] = $markdownSplit['header'];
+            if ($markdownSplit['title']) {
+                $headers[] = $markdownSplit['title'];
 
                 $model = TranslateModel::where('service', $this->service)
                     ->where('local', $this->local)
                     ->where('path', $this->path)
-                    ->where('header', implode('-', explode(' ', $markdownSplit['header'])))
+                    ->where('header', implode('-', explode(' ', $markdownSplit['title'])))
                     ->first();
 
                 if ($model) {
@@ -42,16 +42,17 @@ class TranslateContent
                     $model->service = $this->service;
                     $model->local = $this->local;
                     $model->path = $this->path;
-                    $model->header = implode('-', explode(' ', $markdownSplit['header']));
-                    $model->header_md = $markdownSplit['header_md'];
-                    $model->contents = $markdownSplit['body'];
-                    $model->to_contents = $markdownSplit['body'];
+                    $model->header = implode('-', explode(' ', $markdownSplit['title']));
+                    $model->header_md = $markdownSplit['title'];
+                    $model->contents = $markdownSplit['content'];
+                    $model->to_contents = $markdownSplit['content'];
                     $model->sort = $key;
                     $model->save();
                 }
 
                 $data[] = $model->header_md;
-                $data[] = $model->to_contents;
+                $data[] = trim($model->to_contents, '"');
+                $data[] = trim($model->to_contents, '“');
             }
         }
 

@@ -109,7 +109,7 @@ class HtmlPage implements Page
             // the first element and it will have a class "table-of-contents".
             $firstChild = $body->firstChild->nodeName;
             if ($firstChild === 'ul') {
-                $class = $body->firstChild->attributes->getNamedItem('class')->value;
+                $class = $body->firstChild->attributes->getNamedItem('class')->value ?? null;
                 if (!is_null($class) && $class === 'table-of-contents') {
                     $this->navigation = $this->processNav($body->firstChild);
                     $body->removeChild($body->firstChild);

@@ -85,7 +85,7 @@ class ChatgptTranslate
         
         $es->on('error', function ($e) use ($es, $deferred, &$replay) {
             $es->readyState = \Clue\React\EventSource\EventSource::CLOSED;
-            $deferred->resolve(trim($replay, '"'));
+            $deferred->resolve(trim(trim($replay, '"'), '“'));
             echo $e->getMessage();
         });
     
