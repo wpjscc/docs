@@ -44,13 +44,12 @@ class TranslateContent
                     $model->path = $this->path;
                     $model->header = implode('-', explode(' ', $markdownSplit['title']));
                     $model->header_md = $markdownSplit['title'];
-                    $model->contents = $markdownSplit['content'];
+                    $model->contents = $markdownSplit['title'] ."\n". $markdownSplit['content'];
                     $model->to_contents = $markdownSplit['content'];
                     $model->sort = $key;
                     $model->save();
                 }
 
-                $data[] = $model->header_md;
                 $data[] = $model->to_contents;
             }
         }
